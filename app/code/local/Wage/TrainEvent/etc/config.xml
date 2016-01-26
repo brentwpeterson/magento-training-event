@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Wage_TrainEvent extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Wage
+ * @package        Wage_TrainEvent
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <modules>
+        <Wage_TrainEvent>
+            <version>1.0.0</version>
+        </Wage_TrainEvent>
+    </modules>
+    <global>
+        <resources>
+            <wage_trainevent_setup>
+                <setup>
+                    <module>Wage_TrainEvent</module>
+                    <class>Wage_TrainEvent_Model_Resource_Setup</class>
+                </setup>
+            </wage_trainevent_setup>
+        </resources>
+        <blocks>
+            <wage_trainevent>
+                <class>Wage_TrainEvent_Block</class>
+            </wage_trainevent>
+        </blocks>
+        <helpers>
+            <wage_trainevent>
+                <class>Wage_TrainEvent_Helper</class>
+            </wage_trainevent>
+        </helpers>
+        <models>
+            <wage_trainevent>
+                <class>Wage_TrainEvent_Model</class>
+                <resourceModel>wage_trainevent_resource</resourceModel>
+            </wage_trainevent>
+            <wage_trainevent_resource>
+                <class>Wage_TrainEvent_Model_Resource</class>
+                <entities>
+                    <trainevent>
+                        <table>wage_trainevent</table>
+                    </trainevent>
+                    <trainevent_schedule>
+                        <table>wage_trainevent_schedule</table>
+                    </trainevent_schedule>
+                    <trainevent_store>
+                        <table>wage_trainevent_store</table>
+                    </trainevent_store>
+                    <trainevent_product>
+                        <table>wage_trainevent_product</table>
+                    </trainevent_product>
+                </entities>
+            </wage_trainevent_resource>
+        </models>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <wage_trainevent>
+                        <class>Wage_TrainEvent_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </wage_trainevent>
+                </observers>
+            </controller_front_init_routers>
+        </events>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <wage_trainevent>
+                    <file>wage_trainevent.xml</file>
+                </wage_trainevent>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Wage_TrainEvent>
+                    <files>
+                        <default>Wage_TrainEvent.csv</default>
+                    </files>
+                </Wage_TrainEvent>
+            </modules>
+        </translate>
+        <global_search>
+            <trainevent>
+                <class>wage_trainevent/adminhtml_search_trainevent</class>
+                <acl>wage_trainevent</acl>
+            </trainevent>
+        </global_search>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Wage_TrainEvent before="Mage_Adminhtml">Wage_TrainEvent_Adminhtml</Wage_TrainEvent>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <frontend>
+        <routers>
+            <wage_trainevent>
+                <use>standard</use>
+                <args>
+                    <module>Wage_TrainEvent</module>
+                    <frontName>wage_trainevent</frontName>
+                </args>
+            </wage_trainevent>
+        </routers>
+        <layout>
+            <updates>
+                <wage_trainevent>
+                    <file>wage_trainevent.xml</file>
+                </wage_trainevent>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Wage_TrainEvent>
+                    <files>
+                        <default>Wage_TrainEvent.csv</default>
+                    </files>
+                </Wage_TrainEvent>
+            </modules>
+        </translate>
+        <events>
+            <catalog_product_get_final_price>
+                <observers>
+                    <wage_trainevent_catalog_price_observer>
+                        <type>singleton</type>
+                        <class>wage_trainevent/observer</class>
+                        <method>applyTraineventPrice</method>
+                    </wage_trainevent_catalog_price_observer>
+                </observers>
+            </catalog_product_get_final_price>     
+            <sales_order_place_after>
+                <observers>
+                    <wage_trainevent_stock_update_observer>
+                        <type>singleton</type>
+                        <class>wage_trainevent/observer</class>
+                        <method>eventProductStockUpdate</method>
+                    </wage_trainevent_stock_update_observer>
+                </observers>
+            </sales_order_place_after>
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <wage_trainevent_event_mail_layout_observer>
+                        <type>singleton</type>
+                        <class>wage_trainevent/observer</class>
+                        <method>handleEventBlockAlert</method>
+                    </wage_trainevent_event_mail_layout_observer>
+                </observers>
+            </core_block_abstract_to_html_after>
+        </events>    
+    </frontend>
+    <global>
+        <template>
+            <email>
+                <wage_trainevent_email_email_template translate="label" module="wage_trainevent">
+                    <label>Training Event</label>
+                    <file>wage_trainevent.html</file>
+                    <type>text</type>
+                </wage_trainevent_email_email_template>
+            </email>
+        </template>
+    </global>
+    <default>
+        <wage_trainevent>
+            <email>
+                <recipient_email><![CDATA[hello@example.com]]></recipient_email>
+                <sender_email_identity>custom2</sender_email_identity>
+                <email_template>wage_trainevent_email_email_template</email_template>
+            </email>
+        </wage_trainevent>
+    </default>
+</config>

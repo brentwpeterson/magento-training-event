@@ -1,0 +1,6 @@
+app/code/local/Wage/TrainEvent/		app/code/local/Wage/TrainEvent/
+app/etc/modules/Wage_TrainEvent.xml		app/etc/modules/Wage_TrainEvent.xml
+app/locale/en_US/template/email/wage_trainevent.html 	app/locale/en_US/template/email/wage_trainevent.html
+app/design/adminhtml/default/default/layout/wage_trainevent.xml		app/design/adminhtml/default/default/layout/wage_trainevent.xml
+app/design/adminhtml/default/default/template/wage_trainevent/ 	app/design/adminhtml/default/default/template/wage_trainevent/
+app/design/frontend/base/default/template/wage_trainevent/ 	app/design/frontend/base/default/template/wage_trainevent/

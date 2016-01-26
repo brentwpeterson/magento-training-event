@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Wage_TrainEvent extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Wage
+ * @package        Wage_TrainEvent
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_trainevent_trainevent_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>wage_trainevent/trainevent</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="wage_trainevent/adminhtml_trainevent" name="trainevent" />
+
+        </reference>
+    </adminhtml_trainevent_trainevent_index>
+    <adminhtml_trainevent_trainevent_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="wage_trainevent/adminhtml_trainevent_grid" name="trainevent_grid"/>
+        </block>
+    </adminhtml_trainevent_trainevent_grid>
+    <!-- Trainevent add/edit action -->
+    <adminhtml_trainevent_trainevent_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>wage_trainevent/trainevent</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="wage_trainevent/adminhtml_trainevent_edit" name="trainevent_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="wage_trainevent/adminhtml_trainevent_edit_tabs" name="trainevent_tabs"></block>
+        </reference>
+    </adminhtml_trainevent_trainevent_edit>
+
+    <adminhtml_trainevent_trainevent_products>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="wage_trainevent/adminhtml_trainevent_edit_tab_product" name="trainevent.edit.tab.product"/>
+            <block type="adminhtml/widget_grid_serializer" name="product_grid_serializer">
+                <reference name="product_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>trainevent.edit.tab.product</grid_block_name>
+                            <data_callback>getSelectedProducts</data_callback>
+                            <hidden_input_name>products</hidden_input_name>
+                            <reload_param_name>trainevent_products</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                        <input_name>qty</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_trainevent_trainevent_products>
+    <adminhtml_trainevent_trainevent_productsgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="wage_trainevent/adminhtml_trainevent_edit_tab_product" name="trainevent.edit.tab.product"/>
+        </block>
+    </adminhtml_trainevent_trainevent_productsgrid>
+
+</layout>

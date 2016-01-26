@@ -1,0 +1,48 @@
+<?php
+/**
+ * Wage_TrainEvent extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Wage
+ * @package        Wage_TrainEvent
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * trainevent event guest subscribe
+ * @category    Wage
+ * @package     Wage_TrainEvent
+ * @author      Ultimate Module Creator
+ */
+?>
+
+ <script type="text/javascript">
+    function send_alert_email(url)
+    {
+        var f = $('product_addtocart_form');
+        var validator = new Validation(f);
+        if (validator.validate()) {
+            f.action = url;
+            f.id = 'trainevent_product_addtocart_form';
+            f.submit();
+            $('button-email-send').remove();
+            return true;  
+        }
+        return false;
+    }
+
+</script>
+
+<label style="color: #2F2F2F;font-weight: bold;" >
+    <?php echo $this->__('Subscribe to get next Event Planning'); ?> 
+</label>
+<input type="text" name="guest_email" id="guest_email" class="input-text validate-email required-entry" size="30" />
+<input type="hidden" name="product_id" value="<?php echo Mage::registry('product')->getId()?>" />
+<input type="hidden" name="<?php echo Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED ?>" value="<?php echo Mage::helper('wage_trainevent/trainevent')->getEncodedUrl()?>" />
+<button type="button" id="button-email-send" class="button btn-cart" onclick="send_alert_email('<?php echo $this->escapeHtml(Mage::helper('wage_trainevent/trainevent')->getEmailUrl());?>')" title="<?php echo $this->__('Subscribe'); ?>"><span><?php echo $this->__('Subscribe'); ?></span> </button> 
